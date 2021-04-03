@@ -1,0 +1,39 @@
+<!-- <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">关于</view></cu-custom>
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+  <view class='text-center margin-bottom text-lg  text-grey'>关于Cate 吃旅小程序</view>
+  <view class='text-content'>
+    <view>Hi！打开本程序的各位用户！</view>
+     <view class='margin-top-sm'>该项目是我们队伍“啥都会点儿”开发的，由孙啟航负责服务器、UI及前端等工作，刘金宇负责后端、数据库设计等工作，参加2021中国高校计算机大赛——微信小程序应用开发赛竞赛的作品，本项目使用ColorUI组件库编写前端样式，Java作为后端，数据库使用MySQL编写。</view> 
+    <view class='margin-top-sm'>由于本次大赛队伍里只有两人，准备时间有限，技术上还有很多问题，所以此小程序功能并不是很多。推荐店铺上，因为时间及信息搜索渠道关系，本着对用户负责的态度，只有部分美食有推荐店铺，还请谅解。小程序内少数图片为本人拍摄，大部分来源为网络，在此声明仅作参赛使用。</view> 
+    <view class='margin-top-sm'>最后感谢开源项目ColorUI的作者文晓港大大，感谢ColorUI组件库救了我们的直男审美٩(๑❛ᴗ❛๑)۶</view> 
+    <view class='margin-top-sm'>本程序前后端在大赛结束，经过隐私处理后将在GitHub开放。</view>
+    <view class='margin-top-sm'>最后，感谢各位老师评委评审！</view>
+  </view>
+</view> -->
+<!-- 错题本 -->
+<view class="contarner">
+  <view class="content">
+    <view class="title flex-def flex-cCenter flex-zBetween">
+      <view>错题本(<text>{{list.length}}</text>)题</view>
+      <view class="editBtn" bindtap="showSelIcon">{{iconStatu?'取消':'编辑'}}</view>
+    </view>
+    <view class="{{iconStatu?'margin-b':''}}">
+      <view bindtap="toggleSel" class="item flex-def flex-cCenter flex-zBetween" wx:for="{{list}}" wx:key="{{index}}" data-id='{{item.id}}'>
+        <view class="flex-def flex-cCenter flex-zBetween" data-id='{{item.id}}'>
+          <icon wx:if="{{iconStatu}}" type="success" size="20" color="{{item.selStatu?'#0f0':'#999'}}" data-id='{{item.id}}' />
+          <view data-id='{{item.id}}'>
+            <text data-id='{{item.id}}'>{{item.letter}}-</text>
+            <text data-id='{{item.id}}'>正确：{{item.nickname}}</text>
+          </view>
+        </view>
+        <view data-id='{{item.id}}'>
+          <text class="wrongCount" data-id='{{item.id}}'>23</text>
+          <text class="wrongText" data-id='{{item.id}}'>错误次数</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="footer" wx:if="{{iconStatu}}" bindtap="delItem">
+    已掌握,移除错题本({{selList.length}})
+  </view>
+</view>

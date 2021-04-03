@@ -1,0 +1,50 @@
+<!--pages/today/today.wxml-->
+<text>pages/today/today.wxml</text>
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">Cate 吃旅</view>
+</cu-custom>
+<!-- 今日推荐 -->
+<view class="cu-card case">
+  <navigator class="cu-item shadow" url="/pages/cate/detail/detail?id={{id}}&name={{foodName}}&detail={{detail}}"> 
+    <view class="image">
+      <image src="https://www.qhpersonal.top/images/slide/{{id}}/1.jpg" mode="widthFix"></image>
+      <view class="cu-tag bg-orange">今日推荐</view>
+      <view class="cu-bar bg-shadeBottom">
+        <text class="text-cut">{{foodName}}</text>
+      </view>
+    </view>
+    <view class="cu-list menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url(https://www.qhpersonal.top/images/logo.png);"></view>
+        <view class="content flex-sub">
+          <view class="text-grey">Cate 吃旅</view>
+          <view class="text-gray text-sm flex justify-between">
+            {{date}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </navigator>
+  <!-- 热门美食TOP10 -->
+  <view class="cu-bar bg-white">
+    <view class="action sub-title">
+      <text class="text-xl text-bold text-red">热门美食</text>
+      <text class="bg-red" style="width:4rem"></text>
+    </view>
+  </view>
+  <view class="cu-list menu-avatar" style="margin:5rpx">
+    <navigator class="cu-item solids-bottom" wx:key="content" wx:for="{{10}}" style="height:160rpx;">
+      <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big2100{{index+1}}.jpg);height:120rpx;width:220rpx;"></view>
+      <view class="content" style="left:270rpx;">
+        <view class="text-grey">名字</view>
+        <view class="text-gray text-sm flex">
+          <view class="text-gray text-sm">
+            <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+            <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
+            <text class="cuIcon-messagefill margin-lr-xs"></text> 30
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>

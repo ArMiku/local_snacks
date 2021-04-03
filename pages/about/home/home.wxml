@@ -1,0 +1,71 @@
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">Cate 吃旅</view>
+</cu-custom>
+<view class="margin-xl padding-xl bg-white radius shadow shadow-lg">
+  <view class="flex justify-center">
+    <!-- <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='cu-btn round bg-green shadow'> 登录 </button> -->
+
+    <block wx:if="{{!hasUserInfo && canIUse}}">
+      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile" class='cu-btn round bg-green shadow'> 登录 </button>
+    </block>
+    <block wx:else>
+      <view class='text-center'>
+        <view class="cu-avatar xl round solids" style="background-image:url({{userInfo.avatarUrl}})"></view>
+        <view class="padding">{{userInfo.nickName}}</view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top">
+      <view class="cu-item arrow">
+        <navigator class="content" hover-class="none" url="/pages/about/collection/collection">
+        <text class="cuIcon-favor text-blue"></text>
+        <text class="text-grey">个人收藏</text>
+      </navigator>
+      </view>
+
+      <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/history/history" hover-class="none">
+        <text class="cuIcon-global text-green"></text>
+        <text class="text-grey">浏览历史</text>
+      </navigator>
+    </view>
+
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/comments/comments" hover-class="none">
+        <text class="cuIcon-commentfill text-cyan"></text>
+        <text class="text-grey">所有点评</text>
+      </navigator>
+    </view>
+
+    <view class="cu-item arrow">
+        <button class="cu-btn content" open-type="contact">
+          <image style="height:1.2em" src="/images/logo.png" class="png" mode="aspectFit"></image>
+          <text class="text-grey">联系在线客服</text>
+        </button>
+      </view>
+
+      <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/log/log" hover-class="none">
+        <text class="cuIcon-formfill text-green"></text>
+        <text class="text-grey">参赛开发日志</text>
+      </navigator>
+    </view>
+
+      <view class="cu-item arrow">
+        <navigator class="content" hover-class="none" url="/pages/about/about/about" role="navigation">
+          <text class="cuIcon-discoverfill text-orange"></text>
+          <!-- <image class="png png" mode="aspectFit" src="/images/logo.png"></image> -->
+          <text class="text-grey">关于吃旅日记</text>
+        </navigator>
+      </view>
+
+
+</view>
+
+    
+
+<view class="text-center margin-top">
+  <text class="text-grey text-xl">{{motto}}{{userInfo.nickName}}</text>
+</view>

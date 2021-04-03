@@ -1,14 +1,47 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+  "pages": [
+    "pages/about/home/home",
+    "pages/about/log/log",
+    "pages/about/collection/collection",
+    "pages/about/about/about",
+    "pages/cate/pandect/pandect",
+    "pages/about/history/history",
+    "pages/cate/detail/detail",
+    "pages/today/today",
+    "pages/cate/comment/comment",
+    "pages/about/comments/comments"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "Cate 吃旅",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
   },
-  "style": "v2",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/today/today",
+        "text": "每日推荐",
+        "iconPath": "/images/tabbar/today.png",
+        "selectedIconPath": "/images/tabbar/today_cur.png"
+      },
+      {
+        "pagePath": "pages/cate/pandect/pandect",
+        "text": "美食总览",
+        "iconPath": "/images/tabbar/cate.png",
+        "selectedIconPath": "/images/tabbar/cate_cur.png"
+      },
+      {
+        "pagePath": "pages/about/home/home",
+        "text": "我的",
+        "iconPath": "/images/tabbar/about.png",
+        "selectedIconPath": "/images/tabbar/about_cur.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  },
   "sitemapLocation": "sitemap.json"
 }

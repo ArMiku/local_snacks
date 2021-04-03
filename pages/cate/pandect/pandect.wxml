@@ -1,0 +1,50 @@
+<view class='cu-custom'>
+  <view class="cu-bar fixed bg-shadeTop" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class='content' style='top:{{StatusBar}}px;'>Cate 吃旅</view>
+  </view>
+</view>
+<!-- 总览页面图片滚动栏 -->
+<swiper class="screen-swiper round-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+  <swiper-item wx:for="{{4}}" wx:key="image">
+    <image src="http://qhpersonal.top/img/wx/swiper/swiper-{{index+1}}.png" mode='aspectFill'></image>
+  </swiper-item>
+</swiper>
+<!-- 搜索栏 -->
+<view class="cu-bar search bg-white">
+  <view class="cu-avatar round" style="background-image:url(https://image.weilanwl.com/img/square-2.jpg);"></view>
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="搜索图片、文章、视频" confirm-type="search"></input>
+  </view>
+</view>
+<view class="VerticalBox">
+  <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}" style="height:calc(100vh - 375rpx)">
+    <view class="cu-item {{index==TabCur?'text-green cur':''}}" wx:for="{{provinceList}}" wx:key="provinceList" bindtap='tabSelect' data-id="{{index}}">
+      {{item.name}}
+    </view>
+  </scroll-view>
+  <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 375rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
+    <view class="padding-top padding-lr" wx:for="{{provinceList}}" wx:key="contentList" id="main-{{index}}" wx:for-item="provinceIndex">
+      <view class='cu-bar solid-bottom bg-white'>
+        <view class='action'>
+          <text class='cuIcon-title text-green'>{{provinceIndex.name}}</text>
+        </view>
+      </view>
+      <view class="cu-list menu-avatar" wx:for="{{content}}" wx:key="menuAvatar" wx:if="{{item.area==provinceIndex.name}}" bindtap="details">
+        <navigator class="cu-item " hover-class="none" url="/pages/cate/detail/detail?id={{item.id}}&name={{item.name}}&detail={{item.details}}" role="navigation">
+          <image class="cu-avatar round lg" src="{{item.img}}" bindload="loadOver" data-dedtailId ="img-{{index}}"></image>
+          <view class="content">
+            <view class="text-grey">
+              <text class="text-cut">{{item.name}}</text>
+              <view class="cu-tag round bg-orange sm">今日推荐</view>
+              <!-- <view class="cu-tag round bg-red sm">热门</view> -->
+            </view>
+            <view class="text-gray text-sm flex">
+              <text class="text-cut">{{content[index].details}}</text>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </scroll-view>
+</view>

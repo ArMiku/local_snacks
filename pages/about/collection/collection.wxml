@@ -1,0 +1,82 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">个人收藏</view></cu-custom>
+<!-- 搜索框 -->
+<view class="cu-bar search bg-white solids-bottom">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="搜索图片、文章、视频" confirm-type="search"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-green shadow-blur round">搜索</button>
+  </view>
+</view>
+<!-- 旧版收藏列表 已废弃 -->
+<!-- <view class="cu-card article no-card" wx:if="{{content.length}}">
+  <navigator class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{content}}" wx:key="content" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}" url="../../cate/detail/detail?id={{item.id}}&name={{item.name}}&detail={{item.detail}}">
+    <view class="title">
+      <view class="text-cut">{{item.name}}</view>
+    </view>
+    <view class="content">
+      <image src="{{item.img}}" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content">{{item.detail}}</view>
+      </view>
+    </view>
+  </navigator>
+</view> -->
+<!-- 收藏列表 -->
+<view class="cu-list menu-avatar" style="margin:10rpx">
+  <navigator class="cu-item solids-bottom {{modalName=='move-box-'+ index?'move-cur':''}}" wx:key="content" wx:for="{{4}}"  bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}" style="height:160rpx;">
+    <view>
+      <radio class="cyan radio"></radio>
+    </view>
+    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big2100{{index+1}}.jpg);height:120rpx;width:220rpx;"></view>
+    <view class="content" style="left:270rpx;">
+      <view class="text-grey">名字</view>
+      <view class="text-gray text-sm">
+        <view class="text-gray text-sm">
+          收藏时间
+        </view>
+      </view>
+      <view class="text-gray text-sm flex">
+        <view class="text-gray text-sm">
+          <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+          <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
+          <text class="cuIcon-messagefill margin-lr-xs"></text> 30
+        </view>
+      </view>
+    </view>
+    <view class="move">
+      <view class="bg-red">删除</view>
+    </view>
+  </navigator>
+</view>
+<!-- 没有任何记录 -->
+<view class="tab-content-item" wx:if="{{content.length==0}}">
+  <view class="null-tip">亲，您还没有收藏哦</view>
+  <navigator class="null-action" url='../../cate/pandect/pandect' open-type="switchTab">去逛逛</navigator>
+</view>
+<!-- 底部编辑按钮 -->
+<view class="button-bottom">
+  <view >
+    <view class="{{iconStatu?'edit-click':'edit'}}" bindtap="showEdit">
+      <button class="btn">
+        编辑
+      </button>
+    </view>
+  </view>
+  <view class="bg-white {{iconStatu?'cancel':'edit-click'}}" bindtap="showCancel">
+    <view class="flex justify-between align-center">
+      <view class="padding-sm margin-left-smradius">
+        <radio class="cyan sm radio">
+        </radio>
+        <text class="margin-left-sm">全选</text>
+      </view>
+      <view class="margin-xs radius">
+        <view class="flex justify-end">
+          <view class="margin-xs margin-right-xl">取消</view>
+          <view class="margin-xs margin-right-lg">删除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

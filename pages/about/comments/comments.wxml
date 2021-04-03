@@ -1,0 +1,23 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">所有点评(多少个)</view></cu-custom>
+<view class="cu-card dynamic">
+  <view class="cu-list menu-avatar comment">
+    <view class="cu-item solid-bottom">
+      <view class="cu-avatar round"
+        style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
+      <view class="content">
+        <view class="text-grey">用户</view>
+        <view class="text-gray text-content text-df">
+          评论内容
+        </view>
+        <view class="margin-top-sm flex justify-between">
+          <view class="text-gray text-df">2021年03月25日</view>
+          <view>
+            <text class="cuIcon-appreciatefill text-gray"></text>
+            <!-- 点赞之后 -->
+            <!-- <text class="cuIcon-appreciatefill text-red"></text> -->
+            </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

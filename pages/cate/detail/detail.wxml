@@ -1,0 +1,121 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">{{name}}</view>
+</cu-custom>
+<!-- 图片滚动 -->
+<swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true"
+  interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{swiperList}}" wx:key="swiperList" class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item.url}}" mode="aspectFill"></image>
+    </view>
+  </swiper-item>
+</swiper>
+<!-- 介绍详情 -->
+<view class="margin-lr padding bg-white radius">
+  <view class="padding">{{detail}}</view>
+</view>
+<!-- 功能按钮 -->
+<view class="padding-xl">
+  <!-- <button class="cu-btn block line-orange lg" hover-class="" bindtap="checkedTap" form-type=""> -->
+  <view class="flex">
+    <button class="flex-sub cu-btn block bg-orange lg padding-sm margin-xs" form-type="" catchtap='favor'>
+      <text class="cuIcon-{{favor}}"></text> 收藏
+    </button>
+    <button class="flex-sub cu-btn block bg-cyan lg padding-sm margin-xs" bindtap="showModal"
+      data-target="DialogModal1">
+      <text class="cuIcon-comment"></text>发表评论
+    </button>
+  </view>
+  <!-- 弹出评论窗口 -->
+  <view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">发表评论</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="cu-form-group solid-top" style="text-align:left">
+        <textarea maxlength="-1" bindinput="textareaAInput" placeholder="请输入评论内容"></textarea>
+      </view>
+      <view class="cu-bar bg-white justify-end">
+        <view class="action">
+          <button class="cu-btn line-cyan text-cyan" bindtap="hideModal">取消</button>
+          <button class="cu-btn bg-cyan margin-left" bindtap="hideModal">发表</button>
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button class="cu-btn block bg-blue margin-tb-sm lg padding-sm margin-xs" bindtap="showModal"
+    data-target="DrawerModalL">
+    <text class="cuIcon-appreciate"></text>推荐小店</button>
+</view>
+<!-- 侧面弹出推荐小店列表 -->
+<view class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
+    <view class="cu-list menu text-left">
+      <view class="cu-item" wx:for="{{recommend}}" wx:key="recommand">
+        <view class="content">
+          <view>{{item}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 评论区 -->
+<view class="cu-card dynamic" style="margin-top:-50rpx">
+  <view class="cu-item shadow">
+    <view class="cu-bar bg-white solid-bottom">
+      <view class='action'>
+        评论区
+      </view>
+      <view class="flex justify-end action" bindtap="toComment">查看全部评论</view>
+    </view>
+    <view class="cu-list menu-avatar comment">
+      <view class="cu-item">
+        <view class="cu-avatar round"
+          style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
+        <view class="content">
+          <view class="text-grey">用户</view>
+          <view class="text-gray text-content text-df">
+            评论内容
+          </view>
+          <view class="margin-top-sm flex justify-between">
+            <view class="text-gray text-df">2021年04月03日</view>
+            <view>
+              <text class="cuIcon-appreciatefill text-gray"></text>
+              <!-- 点赞之后 -->
+              <!-- <text class="cuIcon-appreciatefill text-red"></text> -->
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-list menu-avatar comment">
+      <view class="cu-item">
+        <view class="cu-avatar round"
+          style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
+        <view class="content">
+          <view class="text-grey">用户</view>
+          <view class="text-gray text-content text-df">
+            评论内容
+          </view>
+          <view class="margin-top-sm flex justify-between">
+            <view class="text-gray text-df">2021年04月03日</view>
+            <view>
+              <!-- <text class="cuIcon-appreciatefill text-gray"></text> -->
+              <!-- 点赞之后 -->
+              <text class="cuIcon-appreciatefill text-red"></text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+
+</view>
