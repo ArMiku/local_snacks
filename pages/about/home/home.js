@@ -19,6 +19,8 @@ Page({
     })
   },
   onLoad: function () {
+    this.userInfo = wx.getStorageSync('userInfo')
+    this.hasUserInfo = wx.getStorageSync('hasUserInfo')
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
@@ -33,6 +35,8 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
+        wx.setStorageSync('userInfo', res.userInfo)
+        wx.setStorageSync('hasUserInfo', true)
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -58,6 +62,8 @@ Page({
     wx.getUserProfile({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
+        wx.setStorageSync('userInfo', res.userInfo)
+        wx.setStorageSync('hasUserInfo', true)
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
