@@ -30,9 +30,9 @@
           <text class='cuIcon-title text-green'>{{province}}</text>
         </view>
       </view>
-      <view class="cu-list menu-avatar" wx:for="{{content}}" wx:key="menuAvatar" wx:if="{{item.area==provinceIndex.name}}" bindtap="details">
+      <view class="cu-list menu-avatar" wx:for="{{content}}" wx:key="menuAvatar" wx:if="{{item.area==province}}" bindtap="details">
         <navigator class="cu-item " hover-class="none" url="/pages/cate/detail/detail?id={{item.id}}&name={{item.name}}&detail={{item.details}}" role="navigation">
-          <image class="cu-avatar round lg" src="{{item.img}}" bindload="loadOver" data-dedtailId ="img-{{index}}"></image>
+          <image class="cu-avatar round lg" src="https://qh-1259613947.cos.ap-beijing.myqcloud.com/cover/{{item.image}}" bindload="loadOver" data-dedtailId ="img-{{index}}"></image>
           <view class="content">
             <view class="text-grey">
               <text class="text-cut">{{item.name}}</text>
