@@ -1,4 +1,7 @@
 // pages/about/home/home.js
+
+const util = require("../../../utils/util")
+const host = getApp().globalData.host
 //获取应用实例
 const app = getApp()
 
@@ -19,8 +22,10 @@ Page({
     })
   },
   onLoad: function () {
-    this.userInfo = wx.getStorageSync('userInfo')
-    this.hasUserInfo = wx.getStorageSync('hasUserInfo')
+    if(wx.getStorageSync('hasUserInfo')){
+      let user = wx.getStorageSync('userInfo')
+      this.setData({userInfo: user, hasUserInfo: true})
+    }
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
@@ -67,6 +72,30 @@ Page({
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
+        })
+        wx.login({
+          timeout: 3000,
+          success: code=> {
+            wx.request({
+              url: host + '/user/login',
+              method: 'POST',
+              data: {
+                signature: code.code,
+                nickName: res.userInfo.nickName,
+                country: res.userInfo.country,
+                city: res.userInfo.city,
+                province: res.userInfo.province,
+                avatarUrl: res.userInfo.avatarUrl
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              success: data=>{
+                let sessionId = data.data.sessionId
+                wx.setStorageSync('sessionId', sessionId)
+              }
+            })
+          }
         })
       }
     })
