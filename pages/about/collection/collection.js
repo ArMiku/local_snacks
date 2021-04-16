@@ -1,4 +1,5 @@
-const app = getApp();
+const app = getApp()
+const host = app.globalData.host
 Page({
   data: {
     StatusBar: app.globalData.StatusBar,
@@ -9,6 +10,14 @@ Page({
   },
   onLoad: function () {
     var that=this;
+    wx.request({
+      url: host + '/user/getFavor',
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'sessionId': wx.setStorageSync('sessionId')
+      }
+    })
     wx.request({
       url: 'https://www.qhpersonal.top/findFavor.php',
       method: 'GET',

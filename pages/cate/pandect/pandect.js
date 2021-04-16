@@ -1,4 +1,5 @@
 const app = getApp();
+const host = app.globalData.host;
 Page({
   details: function (e) {
     console.log(e);
@@ -13,7 +14,8 @@ Page({
     load: true,
     list: [],
     content: [],
-    pageContent: []
+    pageContent: [],
+    provinces: []
   },
   sort(that) {
     let result = [];
@@ -31,7 +33,7 @@ Page({
   },
   getContent: function (that, area, num) {
     wx.request({
-      url: 'https://www.qhpersonal.top/getContent.php',
+      url: host + '/food/getContent',
       data: area,
       method: 'GET',
       success(res) {
@@ -51,6 +53,35 @@ Page({
         let temp3 = that.data.content.concat(total);
         that.setData({ content: temp3 });
         that.sort(that);
+        wx.hideLoading()
+      }
+    })
+  },
+  getProvince: function(){
+    let that = this
+    wx.request({
+      url: host + '/food/getProvinces',
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': 'sessionId=' + wx.getStorageSync('sessionId')
+      },
+      success: function(res){
+        that.setData({provinces: res.data})
+      }
+    })
+  },
+  getContent: function(){
+    let that = this
+    wx.request({
+      url: host + '/food/getContent',
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': 'sessionId=' + wx.getStorageSync('sessionId')
+      },
+      success: function(res){
+        that.setData({content: res.data})
       }
     })
   },
@@ -60,25 +91,8 @@ Page({
     }
   },
   onLoad() {
-    var that = this;
-    var province = ['北京', '天津', '上海', '重庆', '河北', '山西', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '海南', '四川', '甘肃', '贵州', '云南', '陕西', '甘肃', '青海', '台湾', '内蒙古', '广西', '西藏', '宁夏', '新疆', '香港', '澳门'];
-    wx.showLoading({
-      title: '请稍等...',
-      mask: true
-    })
-    /*setTimeout(function(){
-      wx.hideLoading();
-    },
-      5000
-    );*/
-    var j = province.length;
-    for (var i = 0; i < j; i++) {
-      this.data.list[i] = {};
-      this.data.list[i].name = province[i];
-      this.data.list[i].id = i;
-      this.getContent(that, { area: province[i] }, i);
-    }
-    that.setData({ provinceList: this.data.list });
+    this.getProvince()
+    this.getContent()
   },
   tabSelect(e) {
     this.setData({
