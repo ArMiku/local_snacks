@@ -1,4 +1,5 @@
 const app = getApp();
+const host = app.globalData.host
 Page({
   data: {
     CustomBar: app.globalData.CustomBar,
@@ -7,10 +8,26 @@ Page({
     checked: false,
     cardCur: 0,
     swiperList: [],
-    id: 0,
-    name: '',
-    detail: '',
-    recommend: []
+    food: {}
+  },
+  getFavor: function() {
+    let that = this;
+    wx.request({
+      url: host + '/user/getFavor',
+      data: {
+        'foodId': that.data.food.id
+      },
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': 'sessionId=' + wx.getStorageSync('sessionId')
+      },
+      success: function(res){
+        if(res.data.favor == true){
+          that.setData({favor: 'favorfill'})
+        }
+      }
+    })
   },
   favor: function (e) {
     //点击按钮，样式改变,传递数据
@@ -22,9 +39,19 @@ Page({
         favor: 'favorfill'
       })
       wx.request({
-        url: 'https://www.qhpersonal.top/favorite.php',
-        method: 'GET',
-        data: { userId: app.globalData.userId, favorite: this.data.id, sign: 1 }
+        url: host + '/user/setFavor',
+        data: {
+          'foodId': that.data.food.id,
+          'favor': 1
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': 'sessionId=' + wx.getStorageSync('sessionId')
+        },
+        method: 'POST',
+        success: function(res){
+          console.log(res)
+        }
       })
     }
     else {
@@ -33,9 +60,19 @@ Page({
         favor: 'favor'
       })
       wx.request({
-        url: 'https://www.qhpersonal.top/favorite.php',
-        method: 'GET',
-        data: { userId: app.globalData.userId, favorite: this.data.id, sign: 0 }
+        url: host + '/user/setFavor',
+        data: {
+          'foodId': that.data.food.id,
+          'favor': 0
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': 'sessionId=' + wx.getStorageSync('sessionId')
+        },
+        method: 'POST',
+        success: function(res){
+          console.log(res)
+        }
       })
     }
   },
@@ -70,48 +107,9 @@ Page({
     })
   },
   onLoad(options) {
-    console.log(options.id);
-    this.setData({ detail: options.detail });
-    this.setData({ name: options.name });
-    this.towerSwiper('swiperList');
-    var lb = [{ id: 0, url: 'https://www.qhpersonal.top/images/slide/' + options.id + '/1.jpg' }, { id: 1, url: 'https://www.qhpersonal.top/images/slide/' + options.id + '/2.jpg' }, { id: 2, url: 'https://www.qhpersonal.top/images/slide/' + options.id + '/3.jpg' }];
-    this.setData({ id: options.id, swiperList: lb });
-    var that = this;
-    wx.request({
-      url: 'https://www.qhpersonal.top/favorTest.php',
-      method: 'GET',
-      data: { userId: app.globalData.userId, favorite: this.data.id },
-      success(res) {
-        if (res.data == '1')
-          that.setData({
-            sty: 1,
-            favor: 'favorfill'
-          })
-      }
-    })
-    wx.request({
-      url: 'https://www.qhpersonal.top/history.php',
-      method: 'GET',
-      data: {
-        userId: app.globalData.userId,
-        history: options.id
-      }
-    })
-    wx.request({
-      url: 'https://www.qhpersonal.top/recommend.php',
-      data: { id: options.id },
-      method: 'GET',
-      success(res) {
-        if (res.data == 0) {
-          that.setData({ recommend: ['暂无推荐信息'] });
-        } else {
-          var temp = String(res.data);
-          var temp1 = temp.split(';');
-          that.setData({ recommend: temp1 });
-        }
-      }
-    })
-    // 初始化towerSwiper 传已有的数组名即可
+    this.setData({food: options})
+    console.log(options)
+    this.getFavor()
   },
   DotStyle(e) {
     this.setData({

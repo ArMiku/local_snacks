@@ -17,46 +17,7 @@ Page({
     pageContent: [],
     provinces: []
   },
-  sort(that) {
-    let result = [];
-    let totalId = that.data.content.length;
-    let provinceNum = that.data.list.length;
-    let temp = {};
-    for (let i = 0; i < provinceNum; i++) {
-      for (let j = 0; j < totalId; j++) {
-        if (that.data.content[j].num == i) {
-          result = result.concat(that.data.content[j]);
-        }
-      }
-    }
-    that.setData({ content: result });
-  },
-  getContent: function (that, area, num) {
-    wx.request({
-      url: host + '/food/getContent',
-      data: area,
-      method: 'GET',
-      success(res) {
-        let temp = String(res.data);
-        let temp1 = temp.split('#');
-        var total = [];
-        for (let i = 0; i < temp1.length; i++) {
-          let temp2 = temp1[i].split('@');
-          total[i] = {};
-          total[i].img = temp2[0];
-          total[i].name = temp2[1];
-          total[i].id = temp2[2];
-          total[i].details = temp2[3];
-          total[i].area = area.area;
-          total[i].num = num;
-        }
-        let temp3 = that.data.content.concat(total);
-        that.setData({ content: temp3 });
-        that.sort(that);
-        wx.hideLoading()
-      }
-    })
-  },
+  
   getProvince: function(){
     let that = this
     wx.request({
@@ -71,7 +32,7 @@ Page({
       }
     })
   },
-  getContent: function(){
+  getContent: function(index, limit){
     let that = this
     wx.request({
       url: host + '/food/getContent',
@@ -79,6 +40,10 @@ Page({
       header: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Cookie': 'sessionId=' + wx.getStorageSync('sessionId')
+      },
+      data: {
+        'index': index,
+        'limit': limit
       },
       success: function(res){
         that.setData({content: res.data})
@@ -92,7 +57,7 @@ Page({
   },
   onLoad() {
     this.getProvince()
-    this.getContent()
+    this.getContent(0,20)
   },
   tabSelect(e) {
     this.setData({
@@ -102,6 +67,7 @@ Page({
     })
   },
   VerticalMain(e) {
+    console.log(e)
     let that = this;
     let list = this.data.list;
     let tabHeight = 0;
